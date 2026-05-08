@@ -1,0 +1,21 @@
+services:
+  rabbitmq:
+    image: rabbitmq:4-management
+    container_name: eventpulse-rabbit
+    restart: unless-stopped
+    ports:
+      - "5672:5672"     # AMQP protocol port (your Go app connects here)
+      - "15672:15672"   # Management UI (browser dashboard)
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  rabbitmq_data:
