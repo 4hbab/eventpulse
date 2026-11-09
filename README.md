@@ -1,10 +1,13 @@
 # EventPulse
 
-EventPulse is a Go-based service designed to handle events via RabbitMQ. It provides a robust connection wrapper with automatic reconnection logic to ensure reliable communication with the message broker.
+EventPulse is a Go-based service for publishing simulated tracking events through RabbitMQ. It currently provides the foundation of an event pipeline; connection-bound publisher recovery and its precise delivery guarantees are the focus of Phase 0.
 
 ## Features
 
-- **Robust RabbitMQ Connection**: Built-in auto-reconnect with exponential backoff.
+- **RabbitMQ Connection Prototype**: Connection reconnection with exponential backoff; complete channel and topology recovery is planned in Phase 0.
+- **Confirmed Publishing**: Persistent JSON messages published with RabbitMQ publisher confirms.
+- **Declarative Topology**: Exchange, queue, and binding configuration in Go.
+- **Traffic Simulation**: Configurable tracking-event generation.
 - **Structured Logging**: Uses Go's standard `slog` for structured, leveled logging.
 - **Environment Configuration**: Easy configuration via `.env` files.
 - **Docker Integration**: Includes a `docker-compose.yml` for quick RabbitMQ setup.
@@ -57,8 +60,12 @@ make run
 - `make test`: Run tests.
 - `make tidy`: Tidy go modules, format code, and run vet.
 
+## Engineering Guides
+
+- [Phase 0: Build an Honest Reliability Foundation](guides/phase-0-reliability-foundation.md)
+
 ## Project Structure
 
 - `cmd/eventpulse`: Main entry point of the application.
 - `internal/broker`: RabbitMQ connection management and reconnection logic.
-- `docs`: Project documentation.
+- `guides`: Implementation and reliability guides.
